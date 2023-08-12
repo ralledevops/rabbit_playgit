@@ -30,6 +30,8 @@ services:
       - ./delay:/usr/src/app
       - /usr/src/app/node_modules
     command: npm run test:watchAll:debug
+    depends_on:
+      - rabbitmq
     ports:
       - "9230:9230"
     environment:
