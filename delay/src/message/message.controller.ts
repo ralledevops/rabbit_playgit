@@ -1,6 +1,5 @@
 import { Controller, Post, Body, HttpStatus, HttpCode } from '@nestjs/common';
-import { ProducerService } from 'src/producer/producer.service'; 
-
+import { ProducerService } from '../producer/producer.service'; 
 @Controller('message')
 export class MessageController {
   constructor(private readonly producerService: ProducerService) {}

@@ -18,10 +18,22 @@ services:
       - /usr/src/app/node_modules
     ports:
       - "3000:3000"
+      - "9229:9229" 
     depends_on:
       - rabbitmq
     environment:
       - NODE_ENV=development
+
+  nestjs-tests:
+    build: ./delay
+    volumes:
+      - ./delay:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run test:watchAll:debug
+    ports:
+      - "9230:9230"
+    environment:
+      - NODE_ENV=test
 
 volumes:
   rabbitmq_data:
