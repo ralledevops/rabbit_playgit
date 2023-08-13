@@ -10,6 +10,6 @@ export class ConsumerService {
   })
   public async pubSubHandler(msg: string) {
     console.log(`Received message: ${msg}`);
-    return msg
+    
   }
 }

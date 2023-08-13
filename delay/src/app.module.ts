@@ -5,6 +5,10 @@ import { ConsumerService } from './consumer/consumer.service';
 import { MessageController } from './message/message.controller';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
+import { UserModule } from './user/user.module';
+import { AuthService } from './auth/auth.service';
+import { AuthController } from './auth/auth.controller';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -26,8 +30,10 @@ import { ConfigModule } from '@nestjs/config';
       uri: 'amqp://user:password@rabbitmq:5672',  // Use your RabbitMQ credentials
     }),
     DatabaseModule,
+    UserModule,
+    AuthModule,
   ],
   providers: [ProducerService, ConsumerService],
-  controllers: [MessageController],
+  controllers: [MessageController, AuthController],
 })
 export class AppModule {}
