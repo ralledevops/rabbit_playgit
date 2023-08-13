@@ -3,9 +3,15 @@ import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 import { ProducerService } from './producer/producer.service';
 import { ConsumerService } from './consumer/consumer.service';
 import { MessageController } from './message/message.controller';
+import { DatabaseModule } from './database/database.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true, // makes the ConfigModule global, no need to import it in other modules
+      envFilePath: '.env',
+    }),
     RabbitMQModule.forRoot(RabbitMQModule, {
       exchanges: [
         {
@@ -19,6 +25,7 @@ import { MessageController } from './message/message.controller';
       ],
       uri: 'amqp://user:password@rabbitmq:5672',  // Use your RabbitMQ credentials
     }),
+    DatabaseModule,
   ],
   providers: [ProducerService, ConsumerService],
   controllers: [MessageController],

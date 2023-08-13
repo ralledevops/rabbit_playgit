@@ -30,4 +30,16 @@ describe('ConsumerService', () => {
     await service.pubSubHandler(testMessage);
     expect(logSpy).toHaveBeenCalledWith(`Received message: ${testMessage}`);
   });
+  it('should have the correct message properties', async () => {
+    const testMessage = 'Test Title'
+    
+
+    
+    const result = await service.pubSubHandler(testMessage);
+  console.log('result...................',result)
+    // Check the properties of the resulting message object
+    expect(result).toBe( testMessage); 
+ //   expect(result).toHaveProperty('delay', testMessage.content);
+  });
+  
 });

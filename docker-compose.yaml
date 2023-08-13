@@ -21,6 +21,7 @@ services:
       - "9229:9229" 
     depends_on:
       - rabbitmq
+      - postgres
     environment:
       - NODE_ENV=development
 
@@ -32,10 +33,33 @@ services:
     command: npm run test:watchAll:debug
     depends_on:
       - rabbitmq
+      - postgres
     ports:
       - "9230:9230"
     environment:
       - NODE_ENV=test
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  
+  minio:
+    image: minio/minio
+    volumes:
+      - minio_data:/data
+    ports:
+      - "9000:9000"
+    command: server /data
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: password
 
 volumes:
   rabbitmq_data:
+  postgres_data:
+  minio_data:
